@@ -2,7 +2,10 @@ spring:
   application:
     name: cinema
   datasource:
-    url: JDBC:mysql://localhost:3306/db
+    url: jdbc:postgresql://localhost:5432/db
     username: admin
     password: admin
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
