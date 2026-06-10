@@ -1,4 +1,4 @@
-package ms.cinema.rooms.seats;
+package ms.cinema.rooms.seats.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

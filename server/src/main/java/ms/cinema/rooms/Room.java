@@ -3,7 +3,7 @@ package ms.cinema.rooms;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ms.cinema.rooms.seats.Seat;
+import ms.cinema.rooms.seats.models.Seat;
 import ms.cinema.screenings.Screening;
 
 import java.util.HashSet;

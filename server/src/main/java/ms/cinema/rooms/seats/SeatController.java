@@ -1,6 +1,7 @@
-package ms.cinema.movies;
+package ms.cinema.rooms.seats;
 
 import lombok.RequiredArgsConstructor;
+import ms.cinema.rooms.seats.models.Seat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,35 +10,35 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MovieController implements MovieAPI {
+public class SeatController implements SeatAPI {
 	
-	private final MovieService service;
+	private final SeatService service;
 	
 	@Override
-	public ResponseEntity<List<Movie>> getAll() {
+	public ResponseEntity<List<Seat>> getAll() {
 		return new ResponseEntity<>(
 				service.getAll(),
 				HttpStatus.OK);
 	}
 	
 	@Override
-	public ResponseEntity<Movie> get(Long id) {
+	public ResponseEntity<Seat> get(Long id) {
 		return new ResponseEntity<>(
 				service.get(id),
 				HttpStatus.OK);
 	}
 	
 	@Override
-	public ResponseEntity<Movie> save(Movie movie) {
+	public ResponseEntity<Seat> save(Seat seat) {
 		return new ResponseEntity<>(
-				service.save(movie),
+				service.save(seat),
 				HttpStatus.CREATED);
 	}
 	
 	@Override
-	public ResponseEntity<Movie> update(Movie movie) {
+	public ResponseEntity<Seat> update(Seat seat) {
 		return new ResponseEntity<>(
-				service.update(movie),
+				service.update(seat),
 				HttpStatus.OK);
 	}
 	
