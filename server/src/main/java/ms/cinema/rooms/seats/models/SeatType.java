@@ -1,4 +1,4 @@
-package ms.cinema.rooms.seats;
+package ms.cinema.rooms.seats.models;
 
 public enum SeatType {
 	STANDARD,
