@@ -3,8 +3,6 @@ spring:
     name: cinema
   datasource:
     url: jdbc:postgresql://localhost:5432/db
-    username: admin
-    password: admin
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
