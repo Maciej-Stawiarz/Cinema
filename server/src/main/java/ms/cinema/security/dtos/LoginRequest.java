@@ -1,4 +1,4 @@
-package ms.cinema.security2.dtos;
+package ms.cinema.security.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

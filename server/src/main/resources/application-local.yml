@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+security:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
+    expiration-ms: 86400000

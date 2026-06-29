@@ -1,4 +1,4 @@
-package ms.cinema.security2.jwt;
+package ms.cinema.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

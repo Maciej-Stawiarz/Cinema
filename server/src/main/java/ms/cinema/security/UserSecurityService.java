@@ -1,8 +1,8 @@
-package ms.cinema.security2;
+package ms.cinema.security;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.security2.dtos.UserSecurity;
-import ms.cinema.security2.jwt.JwtTokenService;
+import ms.cinema.security.dtos.UserSecurity;
+import ms.cinema.security.jwt.JwtTokenService;
 import ms.cinema.users.User;
 import ms.cinema.users.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;

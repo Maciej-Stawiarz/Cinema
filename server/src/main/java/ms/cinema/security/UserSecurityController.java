@@ -1,7 +1,7 @@
-package ms.cinema.security2;
+package ms.cinema.security;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.security2.dtos.LoginRequest;
+import ms.cinema.security.dtos.LoginRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 

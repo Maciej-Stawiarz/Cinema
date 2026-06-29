@@ -1,4 +1,4 @@
-package ms.cinema.security2.dtos;
+package ms.cinema.security.dtos;
 
 import lombok.RequiredArgsConstructor;
 import ms.cinema.users.User;
