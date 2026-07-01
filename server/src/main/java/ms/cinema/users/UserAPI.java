@@ -27,15 +27,6 @@ public interface UserAPI {
 	@GetMapping("{id}")
 	ResponseEntity<User> get(@PathVariable("id") Long id);
 	
-	@Operation(method = "POST", description = "Save a user by providing JSON body")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Returned when everything was processed properly"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object's id is not null")
-	})
-	@PostMapping
-	ResponseEntity<User> save(@RequestBody User user);
-	
 	@Operation(method = "PUT", description = "Update already existing user by providing JSON body")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),

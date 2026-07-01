@@ -26,17 +26,6 @@ public class UserService {
 				.orElseThrow(() -> new NotFoundException(String.format("Could not find a user with id: %d", id)));
 	}
 	
-	public User save(User user) {
-		if (user == null) {
-			throw new IllegalArgumentException("Object cannot be null to be saved");
-		}
-		if (user.getId() != null) {
-			throw new IllegalArgumentException("User's id should be null when saving new entity");
-		}
-		
-		return repository.save(user);
-	}
-	
 	public User update(User user) {
 		if (user == null) {
 			throw new IllegalArgumentException("Object cannot be null to be updated");

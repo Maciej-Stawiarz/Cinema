@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import ms.cinema.security.dtos.LoginRequest;
+import ms.cinema.security.dtos.RegistrationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,5 +19,12 @@ public interface UserSecurityAPI {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
 	})
 	@PostMapping("login")
-	ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest);
+	ResponseEntity<Void> login(@Valid @RequestBody LoginRequest request);
+	
+	@Operation(method = "POST", description = "Register an user in the application")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
+	})
+	@PostMapping("register")
+	ResponseEntity<Void> register(@Valid @RequestBody RegistrationRequest request);
 }

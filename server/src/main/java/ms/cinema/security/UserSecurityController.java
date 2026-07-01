@@ -2,6 +2,7 @@ package ms.cinema.security;
 
 import lombok.RequiredArgsConstructor;
 import ms.cinema.security.dtos.LoginRequest;
+import ms.cinema.security.dtos.RegistrationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,11 +14,20 @@ public class UserSecurityController implements UserSecurityAPI {
 	
 	@Override
 	public ResponseEntity<Void> login(LoginRequest request) {
-		String token = service.login(request.email, request.password);
+		String token = service.login(request);
 		
 		return ResponseEntity
 				.ok()
 				.header("Authorization", "Bearer " + token)
+				.build();
+	}
+	
+	@Override
+	public ResponseEntity<Void> register(RegistrationRequest request) {
+		service.register(request);
+		
+		return ResponseEntity
+				.ok()
 				.build();
 	}
 }

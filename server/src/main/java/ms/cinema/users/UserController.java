@@ -28,13 +28,6 @@ public class UserController implements UserAPI{
 	}
 	
 	@Override
-	public ResponseEntity<User> save(User user) {
-		return new ResponseEntity<>(
-				service.save(user),
-				HttpStatus.CREATED);
-	}
-	
-	@Override
 	public ResponseEntity<User> update(User user) {
 		return new ResponseEntity<>(
 				service.update(user),
