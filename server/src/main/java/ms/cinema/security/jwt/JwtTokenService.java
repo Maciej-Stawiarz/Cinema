@@ -32,7 +32,7 @@ public class JwtTokenService {
 	
 	public boolean isTokenValid(String token) {
 		try {
-			return getExpirationDateFromToken(token).before(new Date());
+			return getExpirationDateFromToken(token).after(new Date());
 		} catch (JwtException exception) {
 			return false;
 		}

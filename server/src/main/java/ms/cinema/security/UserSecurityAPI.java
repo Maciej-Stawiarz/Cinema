@@ -16,7 +16,9 @@ public interface UserSecurityAPI {
 	
 	@Operation(method = "POST", description = "Log user into as account with given credentials")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
+			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
+			@ApiResponse(responseCode = "400", description = "Returned when credentials were invalid")
+		
 	})
 	@PostMapping("login")
 	ResponseEntity<Void> login(@Valid @RequestBody LoginRequest request);
@@ -24,6 +26,9 @@ public interface UserSecurityAPI {
 	@Operation(method = "POST", description = "Register an user in the application")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
+			@ApiResponse(responseCode = "400", description = "Returned when a field in the registration form was not present"),
+			@ApiResponse(responseCode = "400", description = "Returned when there is already a user with that e-mail"),
+		
 	})
 	@PostMapping("register")
 	ResponseEntity<Void> register(@Valid @RequestBody RegistrationRequest request);

@@ -10,12 +10,14 @@ import ms.cinema.users.UserRepository;
 import ms.cinema.utils.Validators;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserSecurityService {
+public class UserSecurityService implements UserDetailsService {
 	
 	private final UserRepository repository;
 	private final JwtTokenService tokenProvider;
@@ -24,9 +26,7 @@ public class UserSecurityService {
 	public String login(LoginRequest request) {
 		User user = findUserByUsername(request.email());
 		
-		String hashedPassword = passwordEncoder.encode(request.password());
-		
-		if (!passwordEncoder.matches(hashedPassword, user.getPassword())) {
+		if (!passwordEncoder.matches(request.password(), user.getPassword())) {
 			throw new BadCredentialsException("Invalid username or password");
 		}
 		
@@ -47,7 +47,7 @@ public class UserSecurityService {
 		Validators.requireValidPassword(password);
 		
 		if (repository.findUserByEmail(username).isPresent()) {
-			throw new IllegalArgumentException("There already is an user with given e-mail address");
+			throw new IllegalArgumentException("There already is a user with given e-mail address");
 		}
 		
 		User user = new User(
@@ -59,7 +59,8 @@ public class UserSecurityService {
 		repository.save(user);
 	}
 	
-	public UserDetails loadUserByUsername(String username) {
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = findUserByUsername(username);
 		return new UserSecurity(user);
 	}
@@ -67,6 +68,7 @@ public class UserSecurityService {
 	private User findUserByUsername(String username) {
 		return repository
 				.findUserByEmail(username)
-				.orElseThrow(() -> new BadCredentialsException("Invalid credentials! User not found."));
+				.orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
 	}
+	
 }

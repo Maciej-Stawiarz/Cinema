@@ -13,7 +13,7 @@
 		<encoding>UTF-8</encoding>
 
 		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.reporting.target>${java.version}</maven.reporting.target>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
