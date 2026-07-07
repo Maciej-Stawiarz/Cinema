@@ -23,7 +23,9 @@ public final class Validators {
 	public static void requireValidPassword(String password) {
 		requireNotBlank(password, "Password");
 		if (!PASSWORD_VALIDATOR_PATTERN.matcher(password).matches()) {
-			throw new IllegalArgumentException("Invalid password");
+			throw new IllegalArgumentException("Invalid password. A password must contain one uppercase letter, o" +
+													   "ne number, one symbol: '-', '=', '_', '+' and be at least" +
+													   "6 characters long");
 		}
 	}
 }

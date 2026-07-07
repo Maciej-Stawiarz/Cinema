@@ -70,5 +70,4 @@ public class UserSecurityService implements UserDetailsService {
 				.findUserByEmail(username)
 				.orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
 	}
-	
 }
