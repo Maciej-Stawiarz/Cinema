@@ -1,7 +1,9 @@
 package ms.cinema.movies;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.exceptions.NotFoundException;
+import ms.cinema.movies.models.dtos.MovieDto;
+import ms.cinema.movies.models.entities.Movie;
+import ms.cinema.movies.utilities.MovieMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,53 +12,48 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieService {
 	
+	// TODO: Methods that fetch movies for today, for given genres, for privileges that user has??, for specific rooms
+	
 	private final MovieRepository repository;
 	
-	public List<Movie> getAll() {
-		return repository.findAll();
+	// TODO: Maybe I should add some extra validation? Most of it would be in the DTO, so maybe some db constraints?
+	public MovieDto save(MovieDto movieDto) {
+		if (movieDto == null) {
+			throw new RuntimeException(); // TODO: Change exception type and message
+		}
+		
+		Movie movie = MovieMapper.toEntity(movieDto);
+		Movie savedMovie = repository.save(movie);
+		return MovieMapper.toDTO(savedMovie);
+	}
+	
+	/** TODO: Maybe filter it out based on the constraints of user privileges.
+	 *  TODO: Can verify some db contraints, user constraints, pagination,
+	 *  TODO: filtering output by calling only those for movies that are
+	 *  TODO: aired today, etc...
+	 */
+	public List<MovieDto> getAll() {
+		return repository.findAll().stream()
+				.map(MovieMapper::toDTO)
+				.toList();
 	}
 	
 	public Movie get(Long id) {
 		if (id == null) {
-			throw new IllegalArgumentException("Movie's id should be present to fetch it");
+			throw new RuntimeException(); // TODO: Change exception type and message
 		}
 		
 		return repository
 				.findById(id)
-				.orElseThrow(() -> new NotFoundException(String.format("Could not find a movie with id: %d", id)));
-	}
-	
-	public Movie save(Movie movie) {
-		if (movie == null) {
-			throw new IllegalArgumentException("Object cannot be null to be saved");
-		}
-		if (movie.getId() != null) {
-			throw new IllegalArgumentException("Movie's id should be null when saving new entity");
-		}
-		
-		return repository.save(movie);
-	}
-	
-	public Movie update(Movie movie) {
-		if (movie == null) {
-			throw new IllegalArgumentException("Object cannot be null to be updated");
-		}
-		if (movie.getId() == null) {
-			throw new IllegalArgumentException("Movie's id should not be null to update the entity");
-		}
-		if (!repository.existsById(movie.getId())) {
-			throw new IllegalArgumentException("There is no movie with given id to update");
-		}
-		
-		return repository.save(movie);
+				.orElseThrow(() -> new RuntimeException("")); // TODO: Change exception type and message
 	}
 	
 	public void delete(Long id) {
 		if (id == null) {
-			throw new IllegalArgumentException("Movie's id should not be null to delete the entity");
+			throw new RuntimeException(); // TODO: Change exception type and message
 		}
 		if (!repository.existsById(id)) {
-			throw new IllegalArgumentException("There is no movie with given id to delete");
+			throw new RuntimeException(); // TODO: Change exception type and message
 		}
 		
 		repository.deleteById(id);

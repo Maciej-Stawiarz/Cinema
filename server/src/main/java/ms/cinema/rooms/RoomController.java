@@ -1,6 +1,7 @@
 package ms.cinema.rooms;
 
 import lombok.RequiredArgsConstructor;
+import ms.cinema.rooms.models.entities.Room;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

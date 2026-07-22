@@ -1,9 +1,9 @@
 package ms.cinema.security;
 
-import ms.cinema.security.dtos.LoginRequest;
-import ms.cinema.security.dtos.RegistrationRequest;
-import ms.cinema.security.jwt.JwtTokenService;
-import ms.cinema.users.User;
+import ms.cinema.security.models.dtos.LoginRequest;
+import ms.cinema.security.models.dtos.RegistrationRequest;
+import ms.cinema.security.jwts.JwtTokenService;
+import ms.cinema.users.models.entities.User;
 import ms.cinema.users.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

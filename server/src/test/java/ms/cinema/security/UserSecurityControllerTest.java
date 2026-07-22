@@ -1,7 +1,7 @@
 package ms.cinema.security;
 
-import ms.cinema.security.dtos.LoginRequest;
-import ms.cinema.security.dtos.RegistrationRequest;
+import ms.cinema.security.models.dtos.LoginRequest;
+import ms.cinema.security.models.dtos.RegistrationRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

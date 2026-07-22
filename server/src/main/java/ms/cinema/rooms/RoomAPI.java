@@ -3,6 +3,7 @@ package ms.cinema.rooms;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import ms.cinema.rooms.models.entities.Room;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

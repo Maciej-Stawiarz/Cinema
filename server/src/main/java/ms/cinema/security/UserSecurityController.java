@@ -1,8 +1,8 @@
 package ms.cinema.security;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.security.dtos.LoginRequest;
-import ms.cinema.security.dtos.RegistrationRequest;
+import ms.cinema.security.models.dtos.LoginRequest;
+import ms.cinema.security.models.dtos.RegistrationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
