@@ -1,25 +1,46 @@
 package ms.cinema.movies;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import ms.cinema.exceptions.DataMismatchException;
+import ms.cinema.exceptions.NotFoundException;
 import ms.cinema.movies.models.dtos.MovieDto;
 import ms.cinema.movies.models.entities.Movie;
 import ms.cinema.movies.utilities.MovieMapper;
+import org.hibernate.annotations.NotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MovieService {
 	
-	// TODO: Methods that fetch movies for today, for given genres, for privileges that user has??, for specific rooms
-	
 	private final MovieRepository repository;
 	
-	// TODO: Maybe I should add some extra validation? Most of it would be in the DTO, so maybe some db constraints?
+	
+	public List<MovieDto> getAll() {
+		return repository.findAll().stream()
+				.map(MovieMapper::toDTO)
+				.toList();
+	}
+	
+	public Movie get(String title) {
+		if (title.isBlank()) {
+			throw new IllegalArgumentException("Title cannot be empty when getting a movie");
+		}
+		
+		return repository
+				.findByTitle(title)
+				.orElseThrow(() -> new NotFoundException("There is no movie with given title"));
+	}
+	
+	@Transactional
 	public MovieDto save(MovieDto movieDto) {
-		if (movieDto == null) {
-			throw new RuntimeException(); // TODO: Change exception type and message
+		if (repository.existsByTitle(movieDto.getTitle())) {
+			throw new IllegalArgumentException("There already exists a movie with given title");
 		}
 		
 		Movie movie = MovieMapper.toEntity(movieDto);
@@ -27,33 +48,38 @@ public class MovieService {
 		return MovieMapper.toDTO(savedMovie);
 	}
 	
-	/** TODO: Maybe filter it out based on the constraints of user privileges.
-	 *  TODO: Can verify some db contraints, user constraints, pagination,
-	 *  TODO: filtering output by calling only those for movies that are
-	 *  TODO: aired today, etc...
-	 */
-	public List<MovieDto> getAll() {
-		return repository.findAll().stream()
-				.map(MovieMapper::toDTO)
-				.toList();
-	}
-	
-	public Movie get(Long id) {
-		if (id == null) {
-			throw new RuntimeException(); // TODO: Change exception type and message
+	@Transactional
+	public MovieDto update(Long id, MovieDto movieDto) {
+		Movie foundMovie = repository
+				.findById(id)
+				.orElseThrow(() -> new NotFoundException("There is no movie with given id"));
+		
+		if (!Objects.equals(foundMovie.getTitle(), movieDto.getTitle())) {
+			if (repository.existsByTitle(movieDto.getTitle())) {
+				throw new IllegalArgumentException("There already exists a movie with given title");
+			}
+			
+			foundMovie.setTitle(movieDto.getTitle());
 		}
 		
-		return repository
-				.findById(id)
-				.orElseThrow(() -> new RuntimeException("")); // TODO: Change exception type and message
+		foundMovie.setDescription(movieDto.getDescription());
+		foundMovie.setReleaseDate(movieDto.getReleaseDate());
+		foundMovie.setDuration(movieDto.getDuration());
+		foundMovie.setMovieCast(movieDto.getCast());
+		foundMovie.setDirector(movieDto.getDirector());
+		foundMovie.setPlaceAndTimeOfProduction(movieDto.getPlaceAndTimeOfProduction());
+		foundMovie.setGenres(movieDto.getGenres());
+		foundMovie.setOriginalLanguage(movieDto.getOriginalLanguage());
+		
+		Movie movie = MovieMapper.toEntity(movieDto);
+		Movie savedMovie = repository.save(movie);
+		return MovieMapper.toDTO(savedMovie);
 	}
 	
+	@Transactional
 	public void delete(Long id) {
-		if (id == null) {
-			throw new RuntimeException(); // TODO: Change exception type and message
-		}
 		if (!repository.existsById(id)) {
-			throw new RuntimeException(); // TODO: Change exception type and message
+			throw new NotFoundException("There is no movie with given id");
 		}
 		
 		repository.deleteById(id);

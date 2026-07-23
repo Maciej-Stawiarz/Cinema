@@ -38,4 +38,8 @@ public class Seat {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private ReservationStatus reservationStatus;
+	
+	@ManyToOne
+	@JoinColumn(name = "room_id")
+	private Room room;
 }

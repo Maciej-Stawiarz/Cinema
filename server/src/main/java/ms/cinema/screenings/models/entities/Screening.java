@@ -31,10 +31,10 @@ public class Screening {
 	private String subtitleLanguage;
 	
 	@ManyToOne
-	@JoinColumn(name = "screenings")
+	@JoinColumn(name = "movie_id")
 	private Movie movie;
 	
 	@ManyToOne
-	@JoinColumn(name = "screenings")
+	@JoinColumn(name = "room_id")
 	private Room room;
 }

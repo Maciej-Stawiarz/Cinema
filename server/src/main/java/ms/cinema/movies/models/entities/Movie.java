@@ -16,13 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Movie {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String title;
 	
 	@Column(nullable = false)
@@ -34,7 +35,7 @@ public class Movie {
 	@Column(nullable = false)
 	private Long duration;
 	
-	private String cast;
+	private String movieCast;
 	
 	@Column(nullable = false)
 	private String director;
@@ -48,6 +49,6 @@ public class Movie {
 	@Column(name = "original_language_code", nullable = false, length = 2)
 	private String originalLanguage;
 	
-	@OneToMany(mappedBy = "movie", orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "movie", orphanRemoval = true)
 	List<Screening> screenings;
 }
