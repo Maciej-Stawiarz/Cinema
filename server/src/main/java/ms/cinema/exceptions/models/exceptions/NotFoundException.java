@@ -1,4 +1,4 @@
-package ms.cinema.exceptions;
+package ms.cinema.exceptions.models.exceptions;
 
 public class NotFoundException extends RuntimeException {
 	public NotFoundException(String message) {

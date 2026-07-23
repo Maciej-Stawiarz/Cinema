@@ -1,5 +1,7 @@
 package ms.cinema.exceptions;
 
+import ms.cinema.exceptions.models.exceptions.DataMismatchException;
+import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,5 +30,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(
 			exception.getMessage(),
 			HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(DataMismatchException.class)
+	public ResponseEntity<String> handleDataMismatchException(DataMismatchException exception) {
+		return new ResponseEntity<>(
+				exception.getMessage(),
+				HttpStatus.BAD_REQUEST);
 	}
 }

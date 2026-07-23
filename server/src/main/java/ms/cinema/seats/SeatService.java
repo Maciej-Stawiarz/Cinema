@@ -1,7 +1,7 @@
 package ms.cinema.seats;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.exceptions.NotFoundException;
+import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import ms.cinema.seats.models.entities.Seat;
 import org.springframework.stereotype.Service;
 

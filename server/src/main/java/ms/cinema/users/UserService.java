@@ -1,7 +1,7 @@
 package ms.cinema.users;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.exceptions.NotFoundException;
+import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import ms.cinema.users.models.entities.User;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,7 @@
 package ms.cinema.screenings.models.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ms.cinema.movies.models.entities.Movie;
 import ms.cinema.rooms.models.entities.Room;
 import ms.cinema.screenings.models.enums.ScreeningType;
@@ -11,6 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "screenings")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Screening {
 	
 	@Id

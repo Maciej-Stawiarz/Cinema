@@ -1,7 +1,7 @@
 package ms.cinema.rooms;
 
 import lombok.RequiredArgsConstructor;
-import ms.cinema.exceptions.NotFoundException;
+import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import ms.cinema.rooms.models.entities.Room;
 import org.springframework.stereotype.Service;
 

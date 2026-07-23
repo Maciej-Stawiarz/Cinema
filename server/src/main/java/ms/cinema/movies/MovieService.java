@@ -2,17 +2,14 @@ package ms.cinema.movies;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import ms.cinema.exceptions.DataMismatchException;
-import ms.cinema.exceptions.NotFoundException;
+import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import ms.cinema.movies.models.dtos.MovieDto;
 import ms.cinema.movies.models.entities.Movie;
 import ms.cinema.movies.utilities.MovieMapper;
-import org.hibernate.annotations.NotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +32,12 @@ public class MovieService {
 		return repository
 				.findByTitle(title)
 				.orElseThrow(() -> new NotFoundException("There is no movie with given title"));
+	}
+	
+	public Movie get(Long id) {
+		return repository
+				.findById(id)
+				.orElseThrow(() -> new NotFoundException("There is no movie with given id"));
 	}
 	
 	@Transactional
