@@ -18,7 +18,6 @@ public interface ScreeningAPI {
 	@Operation(method = "GET", description = "Fetch all screenings for given parameters")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
-		
 	})
 	@GetMapping
 	ResponseEntity<List<ScreeningDto>> getScreenings(@RequestParam(required = false, name = "screeningDate") LocalDateTime screeningDate,
@@ -28,7 +27,6 @@ public interface ScreeningAPI {
 	@Operation(method = "GET", description = "Fetch screening by id")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
-		
 	})
 	@GetMapping("{id}")
 	ResponseEntity<Screening> getScreening(@PathVariable("id") Long id);
@@ -36,7 +34,6 @@ public interface ScreeningAPI {
 	@Operation(method = "POST", description = "Add screening to a movie")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
-		
 	})
 	@PostMapping
 	ResponseEntity<ScreeningDto> addScreeningToMovie(@Valid @RequestBody ScreeningDto screeningDto);
@@ -44,7 +41,6 @@ public interface ScreeningAPI {
 	@Operation(method = "DELETE", description = "Delete screening")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
-		
 	})
 	@DeleteMapping("{id}")
 	ResponseEntity<Void> deleteScreening(@PathVariable("id") Long id);

@@ -32,7 +32,7 @@ public interface MovieAPI {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
 	})
-	@GetMapping("{title}")
+	@GetMapping
 	ResponseEntity<Movie> get(@RequestParam("title") String title);
 	
 	@Operation(method = "POST", description = "Save a movie by providing JSON body")

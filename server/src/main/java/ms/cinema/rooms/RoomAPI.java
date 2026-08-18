@@ -32,8 +32,8 @@ public interface RoomAPI {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
 	})
-	@GetMapping("{name}")
-	ResponseEntity<Room> get(@PathVariable("name") String name);
+	@GetMapping
+	ResponseEntity<Room> get(@RequestParam("name") String name);
 
 	@Operation(method = "POST", description = "Save a room by providing JSON body")
 	@ApiResponses(value = {
@@ -46,8 +46,8 @@ public interface RoomAPI {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
 	})
-	@PutMapping
-	ResponseEntity<RoomDto> update(@RequestParam("id") Long id,
+	@PutMapping("{id}")
+	ResponseEntity<RoomDto> update(@PathVariable("id") Long id,
 								   @Valid @RequestBody RoomDto room);
 
 	@Operation(method = "DELETE", description = "Delete already existing room by id")

@@ -76,10 +76,6 @@ public class ScreeningService {
 	
 	@Transactional
 	public void deleteScreening(Long id) {
-		if (!screeningRepository.existsById(id)) {
-			throw new NotFoundException("There is no screening with given id");
-		}
-		
 		screeningRepository.deleteById(id);
 	}
 }
