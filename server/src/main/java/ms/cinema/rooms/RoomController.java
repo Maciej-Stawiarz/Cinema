@@ -1,6 +1,7 @@
 package ms.cinema.rooms;
 
 import lombok.RequiredArgsConstructor;
+import ms.cinema.rooms.models.dtos.RoomDto;
 import ms.cinema.rooms.models.entities.Room;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,36 +12,48 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class RoomController implements RoomAPI {
-	
+
 	private final RoomService service;
 	
+	
 	@Override
-	public ResponseEntity<List<Room>> getAll() {
+	public ResponseEntity<List<RoomDto>> getAll() {
 		return new ResponseEntity<>(
-				service.getAll(),
-				HttpStatus.OK);
+			service.getAll(),
+			HttpStatus.OK
+		);
 	}
 	
 	@Override
 	public ResponseEntity<Room> get(Long id) {
 		return new ResponseEntity<>(
 				service.get(id),
-				HttpStatus.OK);
+				HttpStatus.OK
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Room> save(Room room) {
+	public ResponseEntity<Room> get(String name) {
+		return new ResponseEntity<>(
+				service.get(name),
+				HttpStatus.OK
+		);
+	}
+	
+	@Override
+	public ResponseEntity<RoomDto> save(RoomDto room) {
 		return new ResponseEntity<>(
 				service.save(room),
-				HttpStatus.CREATED);
+				HttpStatus.CREATED
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Room> update(Room room) {
+	public ResponseEntity<RoomDto> update(Long id, RoomDto room) {
 		return new ResponseEntity<>(
-				service.update(room),
-				HttpStatus.OK);
-	}
+				service.update(id, room),
+				HttpStatus.OK
+		);	}
 	
 	@Override
 	public ResponseEntity<Room> delete(Long id) {

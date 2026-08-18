@@ -28,6 +28,13 @@ public interface MovieAPI {
 	@GetMapping
 	ResponseEntity<Movie> get(@RequestParam("title") String title);
 	
+	@Operation(method = "GET", description = "Fetch a single movie by title")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
+	})
+	@GetMapping
+	ResponseEntity<Movie> get(@PathVariable("id") Long id);
+	
 	@Operation(method = "POST", description = "Save a movie by providing JSON body")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Returned when everything was processed properly"),
@@ -41,7 +48,7 @@ public interface MovieAPI {
 	})
 	@PutMapping
 	ResponseEntity<MovieDto> update(@PathVariable("id") Long id,
-								 @Valid @RequestBody MovieDto movie);
+									@Valid @RequestBody MovieDto movie);
 
 	@Operation(method = "DELETE", description = "Delete already existing movie by id")
 	@ApiResponses(value = {

@@ -1,10 +1,6 @@
 package ms.cinema.seats.models.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import ms.cinema.rooms.models.entities.Room;
 import ms.cinema.seats.models.enums.ReservationStatus;
@@ -16,6 +12,7 @@ import ms.cinema.seats.models.enums.SeatType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Seat {
 	
 	@Id

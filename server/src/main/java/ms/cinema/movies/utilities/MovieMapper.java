@@ -7,39 +7,39 @@ public final class MovieMapper {
 	
 	private MovieMapper() {}
 	
-	public static Movie toEntity(MovieDto movieDto) {
-		if (movieDto == null) {
+	public static Movie toEntity(MovieDto dto) {
+		if (dto == null) {
 			return new Movie();
 		}
 		
 		return Movie.builder()
-				.title(movieDto.getTitle())
-				.description(movieDto.getDescription())
-				.releaseDate(movieDto.getReleaseDate())
-				.duration(movieDto.getDuration())
-				.movieCast(movieDto.getCast())
-				.director(movieDto.getDirector())
-				.placeAndTimeOfProduction(movieDto.getPlaceAndTimeOfProduction())
-				.genres(movieDto.getGenres())
-				.originalLanguage(movieDto.getOriginalLanguage())
+				.title(dto.getTitle())
+				.description(dto.getDescription())
+				.releaseDate(dto.getReleaseDate())
+				.duration(dto.getDuration())
+				.movieCast(dto.getCast())
+				.director(dto.getDirector())
+				.placeAndTimeOfProduction(dto.getPlaceAndTimeOfProduction())
+				.genres(dto.getGenres())
+				.originalLanguage(dto.getOriginalLanguage())
 				.build();
 	}
 	
-	public static MovieDto toDTO(Movie movie) {
-		if (movie == null) {
+	public static MovieDto toDTO(Movie entity) {
+		if (entity == null) {
 			return new MovieDto();
 		}
 		
 		return MovieDto.builder()
-				.title(movie.getTitle())
-				.description(movie.getDescription())
-				.releaseDate(movie.getReleaseDate())
-				.duration(movie.getDuration())
-				.cast(movie.getMovieCast())
-				.director(movie.getDirector())
-				.placeAndTimeOfProduction(movie.getPlaceAndTimeOfProduction())
-				.genres(movie.getGenres())
-				.originalLanguage(movie.getOriginalLanguage())
+				.title(entity.getTitle())
+				.description(entity.getDescription())
+				.releaseDate(entity.getReleaseDate())
+				.duration(entity.getDuration())
+				.cast(entity.getMovieCast())
+				.director(entity.getDirector())
+				.placeAndTimeOfProduction(entity.getPlaceAndTimeOfProduction())
+				.genres(entity.getGenres())
+				.originalLanguage(entity.getOriginalLanguage())
 				.build();
 	}
 }

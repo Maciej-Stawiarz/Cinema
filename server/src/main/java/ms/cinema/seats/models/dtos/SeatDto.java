@@ -1,6 +1,5 @@
 package ms.cinema.seats.models.dtos;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -17,8 +16,7 @@ import ms.cinema.seats.models.enums.SeatType;
 @Getter
 public class SeatDto {
 	
-	@NotBlank(message = "Seats' column sign must be added")
-	@Size(message = "Column sign should be one character long", min = 1, max = 1)
+	@NotNull(message = "Seats' column sign must be added")
 	private Character columnSign;
 	@NotNull(message = "Seats' row number must be added")
 	@Positive(message = "Seats' row number must be above 0")

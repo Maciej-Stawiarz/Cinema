@@ -8,11 +8,14 @@ import ms.cinema.screenings.models.entities.Screening;
 import java.util.List;
 
 @Entity
-@Table(name = "rooms")
+@Table(name = "rooms", uniqueConstraints = {
+		@UniqueConstraint(name = "uk_name", columnNames = {"name"})
+})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Room {
 	
 	@Id

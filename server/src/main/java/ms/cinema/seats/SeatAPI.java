@@ -3,56 +3,59 @@ package ms.cinema.seats;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import ms.cinema.rooms.models.dtos.RoomDto;
+import ms.cinema.seats.models.dtos.SeatDto;
 import ms.cinema.seats.models.entities.Seat;
+import ms.cinema.seats.models.enums.ReservationStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("seat")
+@RequestMapping("room")
 public interface SeatAPI {
 	
-	@Operation(method = "GET", description = "Fetch all existing seats")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly")
-	})
-	@GetMapping("all")
-	ResponseEntity<List<Seat>> getAll();
-	
-	@Operation(method = "GET", description = "Fetch a single seat by id")
+	@Operation(method = "GET", description = "Fetch all seats from a room")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
-			@ApiResponse(responseCode = "200", description = "Returned when given id is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when there is no object with given id")
+			@ApiResponse(responseCode = "404", description = "Returned when room with given ID was not found")
 	})
-	@GetMapping("{id}")
-	ResponseEntity<Seat> get(@PathVariable("id") Long id);
+	@GetMapping("{room_id}/seat/all")
+	ResponseEntity<List<Seat>> getAllSeatsFromARoom(@PathVariable("room_id") Long roomID);
 	
-	@Operation(method = "POST", description = "Save a seat by providing JSON body")
+	@Operation(method = "GET", description = "Fetch a seat by ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
+			@ApiResponse(responseCode = "404", description = "Returned when seat with given ID was not found")
+	})
+	@GetMapping("seat/{seat_id}")
+	ResponseEntity<Seat> get(@PathVariable("seat_id") Long seatID);
+	
+	@Operation(method = "POST", description = "Add a list of seats to a room")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Returned when everything was processed properly"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object's id is not null")
+			@ApiResponse(responseCode = "404", description = "Returned when room with given ID was not found")
 	})
-	@PostMapping
-	ResponseEntity<Seat> save(@RequestBody Seat seat);
+	@PostMapping("{room_id}")
+	ResponseEntity<RoomDto> addSeatsToARoom(@PathVariable("room_id") Long roomID,
+											@Valid @RequestBody List<SeatDto> seatDTOList);
 	
-	@Operation(method = "PUT", description = "Update already existing seat by providing JSON body")
+	@Operation(method = "PUT", description = "Update reservation status of a seat")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when given object's id is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when an object with given object's id already exists in the database")
+			@ApiResponse(responseCode = "404", description = "Returned when seat with given ID was not found")
 	})
-	@PutMapping
-	ResponseEntity<Seat> update(@RequestBody Seat seat);
+	@PutMapping("seat/{seat_id}")
+	ResponseEntity<SeatDto> updateReservationStatusOfASeat(@PathVariable("seat_id") Long seatID,
+														   @RequestParam("reservation_status") ReservationStatus reservationStatus);
 	
-	@Operation(method = "DELETE", description = "Delete already existing seat by id")
+	@Operation(method = "DELETE", description = "Delete a seat/s from a room")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Returned when everything was processed properly"),
-			@ApiResponse(responseCode = "200", description = "Returned when given id is null"),
-			@ApiResponse(responseCode = "200", description = "Returned when an object with given id doesn't exist in the database")
+			@ApiResponse(responseCode = "404", description = "Returned when seat with given ID was not found")
 	})
-	@DeleteMapping("{id}")
-	ResponseEntity<Void> delete(@PathVariable("id") Long id);
+	@DeleteMapping("{room_id}")
+	ResponseEntity<Void> removeSeatsFromARoom(@PathVariable("room_id") Long roomID,
+											  @RequestParam("seat_ids") Long[] seatIDs);
 }

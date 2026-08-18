@@ -1,7 +1,10 @@
 package ms.cinema.seats;
 
 import lombok.RequiredArgsConstructor;
+import ms.cinema.rooms.models.dtos.RoomDto;
+import ms.cinema.seats.models.dtos.SeatDto;
 import ms.cinema.seats.models.entities.Seat;
+import ms.cinema.seats.models.enums.ReservationStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,36 +18,40 @@ public class SeatController implements SeatAPI {
 	private final SeatService service;
 	
 	@Override
-	public ResponseEntity<List<Seat>> getAll() {
+	public ResponseEntity<List<Seat>> getAllSeatsFromARoom(Long roomID) {
 		return new ResponseEntity<>(
-				service.getAll(),
-				HttpStatus.OK);
+				service.getAllSeatsFromARoom(roomID),
+				HttpStatus.OK
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Seat> get(Long id) {
+	public ResponseEntity<Seat> get(Long seatID) {
 		return new ResponseEntity<>(
-				service.get(id),
-				HttpStatus.OK);
+				service.get(seatID),
+				HttpStatus.OK
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Seat> save(Seat seat) {
+	public ResponseEntity<RoomDto> addSeatsToARoom(Long roomID, List<SeatDto> seatDTOList) {
 		return new ResponseEntity<>(
-				service.save(seat),
-				HttpStatus.CREATED);
+				service.addSeatsToARoom(roomID, seatDTOList),
+				HttpStatus.CREATED
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Seat> update(Seat seat) {
+	public ResponseEntity<SeatDto> updateReservationStatusOfASeat(Long seatID, ReservationStatus reservationStatus) {
 		return new ResponseEntity<>(
-				service.update(seat),
-				HttpStatus.OK);
+				service.updateReservationStatus(seatID, reservationStatus),
+				HttpStatus.OK
+		);
 	}
 	
 	@Override
-	public ResponseEntity<Void> delete(Long id) {
-		service.delete(id);
+	public ResponseEntity<Void> removeSeatsFromARoom(Long roomID, Long[] seatIDs) {
+		service.removeSeatsFromARoom(roomID, seatIDs);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

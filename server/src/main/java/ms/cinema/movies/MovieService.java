@@ -74,17 +74,11 @@ public class MovieService {
 		foundMovie.setGenres(movieDto.getGenres());
 		foundMovie.setOriginalLanguage(movieDto.getOriginalLanguage());
 		
-		Movie movie = MovieMapper.toEntity(movieDto);
-		Movie savedMovie = repository.save(movie);
+		Movie savedMovie = repository.save(foundMovie);
 		return MovieMapper.toDTO(savedMovie);
 	}
 	
-	@Transactional
 	public void delete(Long id) {
-		if (!repository.existsById(id)) {
-			throw new NotFoundException("There is no movie with given id");
-		}
-		
 		repository.deleteById(id);
 	}
 }
