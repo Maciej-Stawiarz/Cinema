@@ -44,7 +44,7 @@ public class RoomService {
 	@Transactional
 	public RoomDto save(RoomDto roomDto) {
 		if (repository.existsByName(roomDto.getName())) {
-			throw new IllegalArgumentException("There already exists a room with given name");
+			throw new IllegalArgumentException(String.format("There already exists a room with name: %s", roomDto.getName()));
 		}
 		
 		Room room = RoomMapper.toEntity(roomDto);
@@ -56,11 +56,11 @@ public class RoomService {
 	public RoomDto update(Long id, RoomDto roomDto) {
 		Room foundRoom = repository
 				.findById(id)
-				.orElseThrow(() -> new NotFoundException("There is no room with given id"));
+				.orElseThrow(() -> new NotFoundException(String.format("There is no room with id: %d", id)));
 		
 		if (!Objects.equals(foundRoom.getName(), roomDto.getName())) {
 			if (repository.existsByName(roomDto.getName())) {
-				throw new IllegalArgumentException("There already exists a room with given name");
+				throw new IllegalArgumentException(String.format("There already exists a room with name: %s", roomDto.getName()));
 			}
 			
 			foundRoom.setName(roomDto.getName());

@@ -11,7 +11,9 @@ import java.util.EnumSet;
 import java.util.List;
 
 @Entity
-@Table(name = "movies")
+@Table(name = "movies", uniqueConstraints = {
+		@UniqueConstraint(name = "uk_title", columnNames = {"title"})
+})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

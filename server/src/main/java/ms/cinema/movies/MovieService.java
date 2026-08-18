@@ -17,11 +17,16 @@ public class MovieService {
 	
 	private final MovieRepository repository;
 	
-	
 	public List<MovieDto> getAll() {
 		return repository.findAll().stream()
 				.map(MovieMapper::toDTO)
 				.toList();
+	}
+	
+	public Movie get(Long id) {
+		return repository
+				.findById(id)
+				.orElseThrow(() -> new NotFoundException(String.format("Could not find a movie with id: %d", id)));
 	}
 	
 	public Movie get(String title) {
@@ -31,19 +36,13 @@ public class MovieService {
 		
 		return repository
 				.findByTitle(title)
-				.orElseThrow(() -> new NotFoundException("There is no movie with given title"));
-	}
-	
-	public Movie get(Long id) {
-		return repository
-				.findById(id)
-				.orElseThrow(() -> new NotFoundException("There is no movie with given id"));
+				.orElseThrow(() -> new NotFoundException(String.format("Could not find a movie with title: %s", title)));
 	}
 	
 	@Transactional
 	public MovieDto save(MovieDto movieDto) {
 		if (repository.existsByTitle(movieDto.getTitle())) {
-			throw new IllegalArgumentException("There already exists a movie with given title");
+			throw new IllegalArgumentException(String.format("There already exists a movie with title %s", movieDto.getTitle()));
 		}
 		
 		Movie movie = MovieMapper.toEntity(movieDto);
@@ -55,11 +54,11 @@ public class MovieService {
 	public MovieDto update(Long id, MovieDto movieDto) {
 		Movie foundMovie = repository
 				.findById(id)
-				.orElseThrow(() -> new NotFoundException("There is no movie with given id"));
+				.orElseThrow(() -> new NotFoundException(String.format("There is no movie with id: %d", id)));
 		
 		if (!Objects.equals(foundMovie.getTitle(), movieDto.getTitle())) {
 			if (repository.existsByTitle(movieDto.getTitle())) {
-				throw new IllegalArgumentException("There already exists a movie with given title");
+				throw new IllegalArgumentException(String.format("There already exists a movie with title: %s", movieDto.getTitle()));
 			}
 			
 			foundMovie.setTitle(movieDto.getTitle());
