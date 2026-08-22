@@ -28,6 +28,6 @@ public class Room {
 	@OneToMany(mappedBy = "room", orphanRemoval = true)
 	private List<Screening> screenings;
 	
-	@OneToMany(mappedBy = "room", orphanRemoval = true)
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Seat> seats;
 }

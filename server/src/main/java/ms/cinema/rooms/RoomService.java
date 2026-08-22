@@ -6,6 +6,7 @@ import ms.cinema.exceptions.models.exceptions.NotFoundException;
 import ms.cinema.rooms.models.dtos.RoomDto;
 import ms.cinema.rooms.models.entities.Room;
 import ms.cinema.rooms.utilities.RoomMapper;
+import ms.cinema.seats.models.dtos.SeatDto;
 import ms.cinema.seats.models.entities.Seat;
 import ms.cinema.seats.utilities.SeatMapper;
 import org.springframework.stereotype.Service;
@@ -66,11 +67,28 @@ public class RoomService {
 			foundRoom.setName(roomDto.getName());
 		}
 		
+		
+		List<Seat> existingSeats = foundRoom.getSeats();
+		List<SeatDto> newOrModifiedSeats = roomDto.getSeats();
+		
+		
+		
+		
+		
 		List<Seat> newSeats = roomDto.getSeats().stream()
-						.map(SeatMapper::toEntity)
+						.map(seatDto -> SeatMapper.toEntity(seatDto, foundRoom))
 						.toList();
-		foundRoom.setSeats(newSeats);
+		foundRoom.getSeats().clear();
+		foundRoom.getSeats().addAll(newSeats);
 
+		
+		
+		
+		
+		
+		
+		
+		
 		Room savedRoom = repository.save(foundRoom);
 		return RoomMapper.toDTO(savedRoom);
 	}

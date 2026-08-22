@@ -50,11 +50,13 @@ public class UserSecurityService implements UserDetailsService {
 			throw new IllegalArgumentException("There already is a user with given e-mail address");
 		}
 		
+		password = passwordEncoder.encode(password);
+		
 		User user = new User(
 				name,
 				surname,
 				username,
-				passwordEncoder.encode(password));
+				password);
 		
 		repository.save(user);
 	}

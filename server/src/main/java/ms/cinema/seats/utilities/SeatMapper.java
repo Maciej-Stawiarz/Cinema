@@ -1,20 +1,25 @@
 package ms.cinema.seats.utilities;
 
+import ms.cinema.rooms.models.entities.Room;
 import ms.cinema.seats.models.dtos.SeatDto;
 import ms.cinema.seats.models.entities.Seat;
 
 public final class SeatMapper {
 
-	public static Seat toEntity(SeatDto dto) {
-		if (dto == null) {
+	public static Seat toEntity(SeatDto seatDto, Room roomEntity) {
+		if (seatDto == null) {
 			return new Seat();
 		}
 		
+		String seatName = String.valueOf(seatDto.getColumnSign()) + seatDto.getRowNumber();
+		
 		return Seat.builder()
-				.columnSign(dto.getColumnSign())
-				.rowNumber(dto.getRowNumber())
-				.seatType(dto.getSeatType())
-				.reservationStatus(dto.getReservationStatus())
+				.seatName(seatName)
+				.columnSign(seatDto.getColumnSign())
+				.rowNumber(seatDto.getRowNumber())
+				.seatType(seatDto.getSeatType())
+				.reservationStatus(seatDto.getReservationStatus())
+				.room(roomEntity)
 				.build();
 	}
 	

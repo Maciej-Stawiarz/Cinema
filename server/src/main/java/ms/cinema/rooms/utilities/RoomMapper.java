@@ -15,14 +15,16 @@ public final class RoomMapper {
 			return new Room();
 		}
 		
-		List<Seat> seats = dto.getSeats().stream()
-				.map(SeatMapper::toEntity)
-				.toList();
-		
-		return Room.builder()
+		Room room = Room.builder()
 				.name(dto.getName())
-				.seats(seats)
 				.build();
+		
+		List<Seat> seats = dto.getSeats().stream()
+				.map(seatDto -> SeatMapper.toEntity(seatDto, room))
+				.toList();
+		room.setSeats(seats);
+		
+		return room;
 	}
 	
 	public static RoomDto toDTO(Room entity) {

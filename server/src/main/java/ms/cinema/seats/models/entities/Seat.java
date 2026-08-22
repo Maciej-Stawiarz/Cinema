@@ -1,5 +1,6 @@
 package ms.cinema.seats.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import ms.cinema.rooms.models.entities.Room;
@@ -7,12 +8,12 @@ import ms.cinema.seats.models.enums.ReservationStatus;
 import ms.cinema.seats.models.enums.SeatType;
 
 @Entity
-@Table(name = "seats")
+@Table(name = "seats", uniqueConstraints =
+	@UniqueConstraint(name = "uk_seat", columnNames = {"seatName", "room_id"}))
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Seat {
 	
 	@Id
@@ -38,5 +39,6 @@ public class Seat {
 	
 	@ManyToOne
 	@JoinColumn(name = "room_id")
+	@JsonIgnore
 	private Room room;
 }
